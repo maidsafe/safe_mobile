@@ -4,6 +4,10 @@ using CommonUtils;
 namespace SafeAuthenticator.Native {
   #region Native Delegates
 
+  public delegate void AuthExeFileStemCb(IntPtr self, FfiResult result, string exeFileStem);
+
+  public delegate void AuthSetAdditionalSearchPathCb(IntPtr self, FfiResult result);
+
   public delegate void EncodeAuthRspCb(IntPtr a, FfiResult result, string encodedRsp);
 
   public delegate void NetObsCb(IntPtr a, int errorCode, int eventType);
@@ -45,10 +49,12 @@ namespace SafeAuthenticator.Native {
       AppShareMDataReqCb appShareMDataCb,
       AppReqOnErrorCb appReqOnErrorCb);
 
+    void AuthExeFileStem(IntPtr self, AuthExeFileStemCb callback);
     void AuthInitLogging(string fileName, IntPtr userDataPtr, InitLoggingCb callback);
     void AuthOutputLogPath(string fileName, IntPtr userDataPtr, AuthLogPathCb callback);
 
     void AuthRegisteredApps(IntPtr authPtr, IntPtr self, AuthRegisteredAppsCb callback);
+    void AuthSetAdditionalSearchPath(string path, IntPtr self, AuthSetAdditionalSearchPathCb callback);
 
     void CreateAccount(
       string location,

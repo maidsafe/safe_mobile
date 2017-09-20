@@ -1139,6 +1139,36 @@ namespace SafeMessages.Native {
       MDataInfoDecryptCb callback);
 
     #endregion
+
+    #region AppExeFileStem
+
+    public void AppExeFileStem(IntPtr self, AppExeFileStemCb callback) {
+      AppExeFileStemNative(self, callback);
+    }
+
+#if __IOS__
+    [DllImport("__Internal", EntryPoint = "app_exe_file_stem")]
+#elif __ANDROID__
+    [DllImport("safe_app", EntryPoint = "app_exe_file_stem")]
+#endif
+    public static extern void AppExeFileStemNative(IntPtr self, AppExeFileStemCb callback);
+
+    #endregion
+
+    #region AppSetAdditionalSearchPath
+
+    public void AppSetAdditionalSearchPath(string path, IntPtr self, AppSetAdditionalSearchPathCb callback) {
+      AppSetAdditionalSearchPathNative(path, self, callback);
+    }
+
+#if __IOS__
+    [DllImport("__Internal", EntryPoint = "app_set_additional_search_path")]
+#elif __ANDROID__
+    [DllImport("safe_app", EntryPoint = "app_set_additional_search_path")]
+#endif
+    public static extern void AppSetAdditionalSearchPathNative(string path, IntPtr self, AppSetAdditionalSearchPathCb callback);
+
+    #endregion
   }
 }
 

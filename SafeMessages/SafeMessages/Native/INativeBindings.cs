@@ -6,6 +6,10 @@ namespace SafeMessages.Native {
 
   public delegate void InitLoggingCb(IntPtr a, FfiResult result);
 
+  public delegate void AppExeFileStemCb(IntPtr self, FfiResult result, string exeFileStem);
+
+  public delegate void AppSetAdditionalSearchPathCb(IntPtr self, FfiResult result);
+
   public delegate void AppOutputLogPathCallback(IntPtr a, FfiResult result, string path);
 
   public delegate void MDataInfoDecryptCb(IntPtr a, FfiResult result, IntPtr plainText, IntPtr len);
@@ -148,6 +152,7 @@ namespace SafeMessages.Native {
 
   public interface INativeBindings {
     void AccessContainerGetContainerMDataInfo(IntPtr appPtr, string name, IntPtr self, AccessContainerGetContainerMDataInfoCb callback);
+    void AppExeFileStem(IntPtr self, AppExeFileStemCb callback);
     void AppInitLogging(string fileName, IntPtr userDataPtr, InitLoggingCb callback);
     void AppOutputLogPath(string fileName, IntPtr userDataPtr, AppOutputLogPathCallback callback);
     void AppPubSignKey(IntPtr appPtr, IntPtr self, AppPubSignKeyCb callback);
@@ -160,6 +165,7 @@ namespace SafeMessages.Native {
       NetObsCallback netObsCb,
       AppRegisteredCallback appRegCb);
 
+    void AppSetAdditionalSearchPath(string path, IntPtr self, AppSetAdditionalSearchPathCb callback);
     void CipherOptFree(IntPtr appPtr, ulong cipherOptHandle, IntPtr self, CipherOptFreeCb callback);
     void CipherOptNewPlaintext(IntPtr appPtr, IntPtr self, CipherOptNewPlaintextCb callback);
 

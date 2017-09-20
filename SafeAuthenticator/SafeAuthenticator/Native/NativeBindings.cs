@@ -185,6 +185,36 @@ namespace SafeAuthenticator.Native {
     public static extern void AuthAccountInfoNative(IntPtr authPtr, IntPtr self, AuthAccountInfoCb callback);
 
     #endregion
+
+    #region AuthExeFileStem
+
+    public void AuthExeFileStem(IntPtr self, AuthExeFileStemCb callback) {
+      AuthExeFileStemNative(self, callback);
+    }
+
+#if __IOS__
+    [DllImport("__Internal", EntryPoint = "auth_exe_file_stem")]
+#elif __ANDROID__
+    [DllImport("safe_authenticator", EntryPoint = "auth_exe_file_stem")]
+#endif
+    public static extern void AuthExeFileStemNative(IntPtr self, AuthExeFileStemCb callback);
+
+    #endregion
+
+    #region AuthSetAdditionalSearchPath
+
+    public void AuthSetAdditionalSearchPath(string path, IntPtr self, AuthSetAdditionalSearchPathCb callback) {
+      AuthSetAdditionalSearchPathNative(path, self, callback);
+    }
+
+#if __IOS__
+    [DllImport("__Internal", EntryPoint = "auth_set_additional_search_path")]
+#elif __ANDROID__
+    [DllImport("safe_authenticator", EntryPoint = "auth_set_additional_search_path")]
+#endif
+    public static extern void AuthSetAdditionalSearchPathNative(string path, IntPtr self, AuthSetAdditionalSearchPathCb callback);
+
+    #endregion
   }
 }
 #endif

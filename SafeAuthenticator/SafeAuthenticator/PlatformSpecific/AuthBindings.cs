@@ -49,7 +49,7 @@ namespace SafeAuthenticator.Native {
 
     public Task AuthReconnectAsync(IntPtr auth) {
       var (ret, userData) = BindingUtils.PrepareTask();
-      AuthReconnectNative(auth, userData, OnFfiResultCb);
+      AuthReconnectNative(auth, userData, DelegateOnFfiResultCb);
       return ret;
     }
 
@@ -58,7 +58,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<AccountInfo> AuthAccountInfoAsync(IntPtr auth) {
       var (ret, userData) = BindingUtils.PrepareTask<AccountInfo>();
-      AuthAccountInfoNative(auth, userData, OnFfiResultAccountInfoCb);
+      AuthAccountInfoNative(auth, userData, DelegateOnFfiResultAccountInfoCb);
       return ret;
     }
 
@@ -67,7 +67,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<string> AuthExeFileStemAsync() {
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      AuthExeFileStemNative(userData, OnFfiResultStringCb);
+      AuthExeFileStemNative(userData, DelegateOnFfiResultStringCb);
       return ret;
     }
 
@@ -76,7 +76,7 @@ namespace SafeAuthenticator.Native {
 
     public Task AuthSetAdditionalSearchPathAsync(string newPath) {
       var (ret, userData) = BindingUtils.PrepareTask();
-      AuthSetAdditionalSearchPathNative(newPath, userData, OnFfiResultCb);
+      AuthSetAdditionalSearchPathNative(newPath, userData, DelegateOnFfiResultCb);
       return ret;
     }
 
@@ -95,7 +95,7 @@ namespace SafeAuthenticator.Native {
 
     public Task AuthRmRevokedAppAsync(IntPtr auth, string appId) {
       var (ret, userData) = BindingUtils.PrepareTask();
-      AuthRmRevokedAppNative(auth, appId, userData, OnFfiResultCb);
+      AuthRmRevokedAppNative(auth, appId, userData, DelegateOnFfiResultCb);
       return ret;
     }
 
@@ -108,7 +108,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<List<AppExchangeInfo>> AuthRevokedAppsAsync(IntPtr auth) {
       var (ret, userData) = BindingUtils.PrepareTask<List<AppExchangeInfo>>();
-      AuthRevokedAppsNative(auth, userData, OnFfiResultAppExchangeInfoListCb);
+      AuthRevokedAppsNative(auth, userData, DelegateOnFfiResultAppExchangeInfoListCb);
       return ret;
     }
 
@@ -117,7 +117,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<List<RegisteredApp>> AuthRegisteredAppsAsync(IntPtr auth) {
       var (ret, userData) = BindingUtils.PrepareTask<List<RegisteredApp>>();
-      AuthRegisteredAppsNative(auth, userData, OnFfiResultRegisteredAppListCb);
+      AuthRegisteredAppsNative(auth, userData, DelegateOnFfiResultRegisteredAppListCb);
       return ret;
     }
 
@@ -126,7 +126,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<List<AppAccess>> AuthAppsAccessingMutableDataAsync(IntPtr auth, byte[] mdName, ulong mdTypeTag) {
       var (ret, userData) = BindingUtils.PrepareTask<List<AppAccess>>();
-      AuthAppsAccessingMutableDataNative(auth, mdName, mdTypeTag, userData, OnFfiResultAppAccessListCb);
+      AuthAppsAccessingMutableDataNative(auth, mdName, mdTypeTag, userData, DelegateOnFfiResultAppAccessListCb);
       return ret;
     }
 
@@ -160,7 +160,7 @@ namespace SafeAuthenticator.Native {
     public Task<string> EncodeShareMDataRespAsync(IntPtr auth, ref ShareMDataReq req, uint reqId, bool isGranted) {
       var reqNative = req.ToNative();
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      EncodeShareMDataRespNative(auth, ref reqNative, reqId, isGranted, userData, OnFfiResultStringCb);
+      EncodeShareMDataRespNative(auth, ref reqNative, reqId, isGranted, userData, DelegateOnFfiResultStringCb);
       reqNative.Free();
       return ret;
     }
@@ -176,7 +176,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<string> AuthRevokeAppAsync(IntPtr auth, string appId) {
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      AuthRevokeAppNative(auth, appId, userData, OnFfiResultStringCb);
+      AuthRevokeAppNative(auth, appId, userData, DelegateOnFfiResultStringCb);
       return ret;
     }
 
@@ -189,7 +189,7 @@ namespace SafeAuthenticator.Native {
 
     public Task AuthFlushAppRevocationQueueAsync(IntPtr auth) {
       var (ret, userData) = BindingUtils.PrepareTask();
-      AuthFlushAppRevocationQueueNative(auth, userData, OnFfiResultCb);
+      AuthFlushAppRevocationQueueNative(auth, userData, DelegateOnFfiResultCb);
       return ret;
     }
 
@@ -198,7 +198,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<string> EncodeUnregisteredRespAsync(uint reqId, bool isGranted) {
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      EncodeUnregisteredRespNative(reqId, isGranted, userData, OnFfiResultStringCb);
+      EncodeUnregisteredRespNative(reqId, isGranted, userData, DelegateOnFfiResultStringCb);
       return ret;
     }
 
@@ -212,7 +212,7 @@ namespace SafeAuthenticator.Native {
     public Task<string> EncodeAuthRespAsync(IntPtr auth, ref AuthReq req, uint reqId, bool isGranted) {
       var reqNative = req.ToNative();
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      EncodeAuthRespNative(auth, ref reqNative, reqId, isGranted, userData, OnFfiResultStringCb);
+      EncodeAuthRespNative(auth, ref reqNative, reqId, isGranted, userData, DelegateOnFfiResultStringCb);
       reqNative.Free();
       return ret;
     }
@@ -229,7 +229,7 @@ namespace SafeAuthenticator.Native {
     public Task<string> EncodeContainersRespAsync(IntPtr auth, ref ContainersReq req, uint reqId, bool isGranted) {
       var reqNative = req.ToNative();
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      EncodeContainersRespNative(auth, ref reqNative, reqId, isGranted, userData, OnFfiResultStringCb);
+      EncodeContainersRespNative(auth, ref reqNative, reqId, isGranted, userData, DelegateOnFfiResultStringCb);
       reqNative.Free();
       return ret;
     }
@@ -245,7 +245,7 @@ namespace SafeAuthenticator.Native {
 
     public Task AuthInitLoggingAsync(string outputFileNameOverride) {
       var (ret, userData) = BindingUtils.PrepareTask();
-      AuthInitLoggingNative(outputFileNameOverride, userData, OnFfiResultCb);
+      AuthInitLoggingNative(outputFileNameOverride, userData, DelegateOnFfiResultCb);
       return ret;
     }
 
@@ -257,7 +257,7 @@ namespace SafeAuthenticator.Native {
 
     public Task<string> AuthOutputLogPathAsync(string outputFileName) {
       var (ret, userData) = BindingUtils.PrepareTask<string>();
-      AuthOutputLogPathNative(outputFileName, userData, OnFfiResultStringCb);
+      AuthOutputLogPathNative(outputFileName, userData, DelegateOnFfiResultStringCb);
       return ret;
     }
 
@@ -279,6 +279,8 @@ namespace SafeAuthenticator.Native {
         () => Marshal.PtrToStructure<AccountInfo>(accountInfo));
     }
 
+    private static readonly FfiResultAccountInfoCb DelegateOnFfiResultAccountInfoCb = OnFfiResultAccountInfoCb;
+
     private delegate void FfiResultAppAccessListCb(IntPtr userData, IntPtr result, IntPtr appAccessPtr, UIntPtr appAccessLen);
 
 #if __IOS__
@@ -290,6 +292,8 @@ namespace SafeAuthenticator.Native {
         Marshal.PtrToStructure<FfiResult>(result),
         () => BindingUtils.CopyToObjectList<AppAccess>(appAccessPtr, (int)appAccessLen));
     }
+
+    private static readonly FfiResultAppAccessListCb DelegateOnFfiResultAppAccessListCb = OnFfiResultAppAccessListCb;
 
     private delegate void FfiResultAppExchangeInfoListCb(
       IntPtr userData,
@@ -311,6 +315,8 @@ namespace SafeAuthenticator.Native {
         () => BindingUtils.CopyToObjectList<AppExchangeInfo>(appExchangeInfoPtr, (int)appExchangeInfoLen));
     }
 
+    private static readonly FfiResultAppExchangeInfoListCb DelegateOnFfiResultAppExchangeInfoListCb = OnFfiResultAppExchangeInfoListCb;
+
     private delegate void FfiResultAuthenticatorCb(IntPtr userData, IntPtr result, IntPtr authenticator);
 
     private delegate void FfiResultCb(IntPtr userData, IntPtr result);
@@ -321,6 +327,8 @@ namespace SafeAuthenticator.Native {
     private static void OnFfiResultCb(IntPtr userData, IntPtr result) {
       BindingUtils.CompleteTask(userData, Marshal.PtrToStructure<FfiResult>(result));
     }
+
+    private static readonly FfiResultCb DelegateOnFfiResultCb = OnFfiResultCb;
 
     private delegate void FfiResultRegisteredAppListCb(IntPtr userData, IntPtr result, IntPtr registeredAppPtr, UIntPtr registeredAppLen);
 
@@ -335,14 +343,18 @@ namespace SafeAuthenticator.Native {
           Select(native => new RegisteredApp(native)).ToList());
     }
 
-    private delegate void FfiResultStringCb(IntPtr userData, IntPtr result, string filename);
+    private static readonly FfiResultRegisteredAppListCb DelegateOnFfiResultRegisteredAppListCb = OnFfiResultRegisteredAppListCb;
+
+    private delegate void FfiResultStringCb(IntPtr userData, IntPtr result, string response);
 
 #if __IOS__
     [MonoPInvokeCallback(typeof(FfiResultStringCb))]
 #endif
-    private static void OnFfiResultStringCb(IntPtr userData, IntPtr result, string filename) {
-      BindingUtils.CompleteTask(userData, Marshal.PtrToStructure<FfiResult>(result), () => filename);
+    private static void OnFfiResultStringCb(IntPtr userData, IntPtr result, string response) {
+      BindingUtils.CompleteTask(userData, Marshal.PtrToStructure<FfiResult>(result), () => response);
     }
+
+    private static readonly FfiResultStringCb DelegateOnFfiResultStringCb = OnFfiResultStringCb;
 
     private delegate void NoneCb(IntPtr userData);
 

@@ -2,20 +2,20 @@ environment:
   matrix:
     - solution_name: SafeAuthenticator/SafeAuthenticator.sln
     - solution_name: SafeMessages/SafeMessages.sln
-
-cache:
+    
+ cache:
   - '%temp%\nativeauthlibs'
   - packages -> **\**\packages.config
   - '%USERPROFILE%\.nuget\packages'
   - SafeAuthenticator\tools -> SafeAuthenticator\CakeScripts\build.cake, SafeAuthenticator\CakeScripts\build.ps1, SafeAuthenticator\CakeScripts\build.sh
-
-image: Visual Studio 2017
-
-before_build:
+  
+ image: Visual Studio 2017
+ 
+ before_build:
  - cmd : nuget restore %solution_name% -verbosity quiet
-
-build:
+ 
+ build:
   verbosity: normal
-
-build_script:
+  
+ build_script:
  - msbuild %solution_name%

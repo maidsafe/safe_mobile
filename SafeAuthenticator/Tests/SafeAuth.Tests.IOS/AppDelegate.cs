@@ -23,6 +23,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Foundation;
 
 using NUnit.Runner.Services;
@@ -44,6 +45,7 @@ namespace NUnit.Runner.Tests
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
+        string TCP_LISTEN_HOST = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.First(f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
@@ -66,13 +68,14 @@ namespace NUnit.Runner.Tests
 
                 // Information about the tcp listener host and port.
                 // For now, send result as XML to the listening server.
-                TcpWriterParameters = new TcpWriterInfo("192.168.0.101", 10579),
+                //TcpWriterParameters = new TcpWriterInfo(System.Net.IPAddress.Any.ToString(), 10500),
+                TcpWriterParameters = new TcpWriterInfo(TCP_LISTEN_HOST, 10500),
 
                 // Creates a NUnit Xml result file on the host file system using PCLStorage library.
-                //CreateXmlResultFile = true,
+                CreateXmlResultFile = true,
 
                 // Choose a different path for the xml result file (ios file share / library directory)
-                //ResultFilePath = Path.Combine(NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomain.User)[0].Path, "Results.xml")
+                ResultFilePath = Path.Combine(NSFileManager.DefaultManager.GetUrls(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomain.User)[0].Path, "Results.xml")
             };
 
             LoadApplication(nunit);

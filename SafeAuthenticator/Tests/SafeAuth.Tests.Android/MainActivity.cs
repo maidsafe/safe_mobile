@@ -26,7 +26,9 @@ using Android.Content.PM;
 using Android.OS;
 using NUnit.Runner;
 using NUnit.Runner.Services;
+using System;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -40,7 +42,7 @@ namespace SafeAuth.Tests.Android
         {
             base.OnCreate(savedInstanceState);
             Forms.Init(this, savedInstanceState);
-
+            
             // This will load all tests within the current project
             //var nunit = new NUnit.Runner.App();
             var nunit = new App
@@ -62,9 +64,8 @@ namespace SafeAuth.Tests.Android
 
                     // Information about the tcp listener host and port.
                     // For now, send result as XML to the listening server.
-                    //TcpWriterParameters = new TcpWriterInfo("10.0.2.2", 10570),
-                    TcpWriterParameters = new TcpWriterInfo("192.168.0.101", 10579),
-
+                    TcpWriterParameters = new TcpWriterInfo("10.0.2.2", 10500),
+                    
                     // Creates a NUnit Xml result file on the host file system using PCLStorage library.
                     //CreateXmlResultFile = true,
 

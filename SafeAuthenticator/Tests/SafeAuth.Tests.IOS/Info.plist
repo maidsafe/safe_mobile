@@ -24,7 +24,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>NUnit</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.nunit.tests</string>
+	<string>net.maidsafe.SafeAuthenticatorTests</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -47,5 +47,7 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>CFBundleName</key>
+	<string>SafeAuthenticatorTests</string>
 </dict>
 </plist>

@@ -16,7 +16,7 @@ var ANDROID_TCP_LISTEN_HOST = System.Net.IPAddress.Any;
 var ANDROID_TCP_LISTEN_PORT = 10500;
 
 Task ("test-android-emu")
-    .Does (async() =>
+    .Does (()=>
 {        
   	var androidSdkSettings = new AndroidSdkManagerToolSettings { 
 		SdkRoot = ANDROID_HOME,

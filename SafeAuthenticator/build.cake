@@ -119,7 +119,7 @@ Task ("test-android-emu")
 });
 
 Task("Default")
-  .IsDependentOn("AndroidSDK")
+  .IsDependentOn("test-android-emu")
   .Does(() => {
   });
 

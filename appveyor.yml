@@ -1,7 +1,9 @@
-# environment: 
-#   matrix:
-#     - solution_name: SafeAuthenticator/SafeAuthenticator.sln
-#     - solution_name: SafeMessages/SafeMessages.sln
+environment: 
+  CAKE_SETTINGS_SKIPVERIFICATION: true
+  ANDROID_HOME: 'C:\Program Files (x86)\Android\android-sdk\'
+  # matrix:
+  #   - solution_name: SafeAuthenticator/SafeAuthenticator.sln
+  #   - solution_name: SafeMessages/SafeMessages.sln
 
 # cache:
 #   - '%temp%\nativeauthlibs'
@@ -9,7 +11,7 @@
 #   - '%USERPROFILE%\.nuget\packages'
 #   - SafeAuthenticator\tools -> SafeAuthenticator\build.cake, SafeAuthenticator\build.ps1, SafeAuthenticator\build.sh
 
-# image: Visual Studio 2017
+image: Visual Studio 2017
 
 # before_build:
 #  - cmd : nuget restore %solution_name% -verbosity quiet
@@ -17,34 +19,35 @@
 # build:
 #   verbosity: normal
 
-# build_script:
-#  - msbuild %solution_name%
-
-
-environment:
-  ANDROID_HOME: "C:\\android-sdk-windows"
-  JAVA_HOME: "C:\\Program Files\\Java\\jdk1.8.0"
-
-init:
-  - cd \
-  - appveyor DownloadFile http://dl.google.com/android/android-sdk_r24.4.1-windows.zip
-  - 7z x android-sdk_r24.4.1-windows.zip > nul
-  - cd C:\projects\safe-mobile
-
-install:
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t tools
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t platform-tools
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-21.0.0
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t android-21
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t extra-google-m2repository
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t extra-android-m2repository
-  - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t sys-img-armeabi-v7a-android-21
-
-before_build:
-  - echo no | "%ANDROID_HOME%\tools\android.bat" create avd --force -n test -t android-21 --abi armeabi-v7a
-  - ps: Start-Process "C:\android-sdk-windows\tools\emulator.exe" "-avd test -no-audio -no-window" 
-  - ps: Start-sleep -s 120
-  - echo dummy | "%ANDROID_HOME%\platform-tools\adb.exe" shell input keyevent 82 
-
 build_script:
-  - ps: $env:Path += ";C:\android-sdk-windows\platform-tools";
+ - ps: cd SafeAuthenticator/
+ - powershell .\build.ps1 -Target Default -Verbosity diagnostic
+
+
+# environment:
+#   ANDROID_HOME: "C:\\android-sdk-windows"
+#   JAVA_HOME: "C:\\Program Files\\Java\\jdk1.8.0"
+
+# init:
+#   - cd \
+#   - appveyor DownloadFile http://dl.google.com/android/android-sdk_r24.4.1-windows.zip
+#   - 7z x android-sdk_r24.4.1-windows.zip > nul
+#   - cd C:\projects\safe-mobile
+
+# install:
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t tools
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t platform-tools
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t build-tools-21.0.0
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t android-21
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t extra-google-m2repository
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t extra-android-m2repository
+#   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t sys-img-armeabi-v7a-android-21
+
+# before_build:
+#   - echo no | "%ANDROID_HOME%\tools\android.bat" create avd --force -n test -t android-21 --abi armeabi-v7a
+#   - ps: Start-Process "C:\android-sdk-windows\tools\emulator.exe" "-avd test -no-audio -no-window" 
+#   - ps: Start-sleep -s 120
+#   - echo dummy | "%ANDROID_HOME%\platform-tools\adb.exe" shell input keyevent 82 
+
+# build_script:
+#   - ps: $env:Path += ";C:\android-sdk-windows\platform-tools";

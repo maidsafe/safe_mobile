@@ -29,7 +29,7 @@ init:
   - cd \
   - appveyor DownloadFile http://dl.google.com/android/android-sdk_r24.4.1-windows.zip
   - 7z x android-sdk_r24.4.1-windows.zip > nul
-  - cd C:\projects\ci-with-android-emulator
+  - cd C:\projects\safe-mobile
 
 install:
   - echo y | "%ANDROID_HOME%\tools\android.bat" update sdk -u -a -t tools

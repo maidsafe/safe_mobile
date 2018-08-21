@@ -1,6 +1,7 @@
 // #addin Cake.Curl
 #addin nuget:?package=Cake.Android.SdkManager
 #addin nuget:?package=Cake.Android.Adb&version=3.0.0
+#addin nuget:?package=Cake.Android.AvdManager&version=1.0.3
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");

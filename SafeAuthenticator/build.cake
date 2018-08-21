@@ -26,7 +26,7 @@ Task ("test-android-emu")
 	try { AcceptLicenses (androidSdkSettings); } catch { }
 
 	AndroidSdkManagerInstall (new [] {
-			"platforms;android-26"
+			"system-images;android-26;google_apis;x86"
 		}, androidSdkSettings);
 
     if (EnvironmentVariable("ANDROID_SKIP_AVD_CREATE") == null) {

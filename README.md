@@ -1,5 +1,9 @@
 # SAFE Mobile Examples
 
+|CI - Xamarin.Android|
+|:-----------------:|
+|[![Build status](https://ci.appveyor.com/api/projects/status/2fnekwfbm5h2ayk7/branch/master?svg=true)](https://ci.appveyor.com/project/MaidSafe-QA/safe-mobile/branch/master)|
+
 ## Overview
 
 Mobile samples of SAFE Authenticator and SAFE Messages/Mail example.

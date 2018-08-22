@@ -1,0 +1,15 @@
+environment: 
+  CAKE_SETTINGS_SKIPVERIFICATION: true
+  ANDROID_HOME: 'C:\Program Files (x86)\Android\android-sdk\'
+
+image: Visual Studio 2017
+
+build:
+  verbosity: normal
+
+build_script:
+  - ps: cd SafeAuthenticator/ 
+  - powershell .\build.ps1 -Target Default -Verbosity normal
+#  - ps: $(ANDROID_HOME)/tools/bin/sdkmanager "system-images;android-26;google_apis;x86" --no_https
+#  - ps: $(ANDROID_HOME)/tools/bin/avdmanager create avd -n myavd -d 29 -k "system-images;android-26;google_apis;x86"
+  

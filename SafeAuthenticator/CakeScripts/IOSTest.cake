@@ -14,7 +14,7 @@ var IOS_TEST_RESULTS_PATH = "../Tests/SafeAuth.Tests.IOS/IOSTestResult.xml";
 var IOS_TCP_LISTEN_HOST = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.First(f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 var IOS_TCP_LISTEN_PORT = 10500;
 
-Task ("build-ios")
+Task ("Build-IOS")
     .Does (() =>
 {
     // Setup the test listener config to be built into the app
@@ -25,6 +25,7 @@ Task ("build-ios")
         c.Configuration = "Release";
         c.Targets.Clear();
         c.Targets.Add("Restore");
+        c.SetVerbosity(Verbosity.Minimal);
     });
 
     // Build the project (with ipa)
@@ -34,12 +35,13 @@ Task ("build-ios")
         c.Properties["BuildIpa"] = new List<string> { "true" };
         c.Targets.Clear();
         c.Targets.Add("Rebuild");
+        c.SetVerbosity(Verbosity.Minimal);
     });
 });
 
 
-Task ("test-ios-emu")
-    .IsDependentOn ("build-ios")
+Task ("Test-IOS-Emu")
+    .IsDependentOn ("Build-IOS")
     .Does (() =>
 {
     // Look for a matching simulator on the system

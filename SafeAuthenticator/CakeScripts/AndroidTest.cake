@@ -17,23 +17,31 @@ var ANDROID_TCP_LISTEN_PORT = 10500;
 var ANDROID_HOME = EnvironmentVariable("ANDROID_HOME");
 
 
-Task ("build-android")
-    //.IsDependentOn("Restore-NuGet-Packages")
+Task ("Build-Android")
     .Does (() =>
 {
+    // Nuget restore
+    MSBuild (ANDROID_PROJ, c => {
+        c.Configuration = "Debug";
+        c.Targets.Clear();
+        c.Targets.Add("Restore");
+        c.SetVerbosity(Verbosity.Minimal);
+    });
+
     // Build the app in debug mode
     // needs to be debug so unit tests get discovered
     MSBuild (ANDROID_PROJ, c => {
         c.Configuration = "Debug";
         c.Targets.Clear();
         c.Targets.Add("Rebuild");
+        c.SetVerbosity(Verbosity.Minimal);
     });
 });
 
 
-Task ("test-android-emu")
-    .IsDependentOn ("build-android")
-    .Does (async() =>
+Task ("Test-Android-Emu")
+    .IsDependentOn ("Build-Android")
+    .Does (() =>
 {        
     if (EnvironmentVariable("ANDROID_SKIP_AVD_CREATE") == null) {
         var avdSettings = new AndroidAvdManagerToolSettings  { SdkRoot = ANDROID_HOME };
@@ -101,6 +109,7 @@ Task ("test-android-emu")
         c.Properties["AdbTarget"] = new List<string> { "-s " + emuSerial };
         c.Targets.Clear();
         c.Targets.Add("Install");
+        c.SetVerbosity(Verbosity.Minimal);
     });
 
     //start the TCP Test results listener

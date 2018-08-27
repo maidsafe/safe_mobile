@@ -157,13 +157,21 @@ Task ("UnZip-Libs")
     Information (exception.Message);
   });
 
+Task ("Analyse-Result-File")
+  .Does (() => {
+      AnalyseResultFile (ANDROID_TEST_RESULTS_PATH);
+      AnalyseResultFile (IOS_TEST_RESULTS_PATH);
+      Information("All Tests Have Passed");
+  });
+
 Task ("Default")
   .IsDependentOn ("UnZip-Libs")
   .IsDependentOn("Restore-NuGet-Packages")
-  .IsDependentOn ("test-android-emu")
-  .IsDependentOn ("test-ios-emu")
-  .Does (() => {
+  .IsDependentOn ("Test-Android-Emu")
+  .IsDependentOn ("Test-IOS-Emu")
+  .IsDependentOn ("Analyse-Result-File")
 
+  .Does (() => {
   });
 
 RunTarget (target);

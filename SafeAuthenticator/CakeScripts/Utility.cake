@@ -2,7 +2,7 @@
 
 var COMMON_PROJ = "../../CommonUtils/CommonUtils/CommonUtils.csproj";
 var PROJ_SLN_PATH = "../SafeAuthenticator.sln";
-
+string line; 
  
 Func <System.Net.IPAddress, int, string, Task> DownloadTcpTextAsync = (System.Net.IPAddress TCP_LISTEN_HOST,int TCP_LISTEN_PORT,string RESULTS_PATH)=> System.Threading.Tasks.Task.Run (() => 
 {
@@ -32,6 +32,17 @@ Func <System.Net.IPAddress, int, string, Task> DownloadTcpTextAsync = (System.Ne
         }
 });
 
+void AnalyseResultFile(string FilePath) {
+    var file = new StreamReader(FilePath);
+    while ((line = file.ReadLine ()) != null) {
+        foreach (var word in line.Split (' ')) {
+            if (word == @"result=""Failed""") {
+                throw new Exception(string.Format("Tests Failed"));
+            }
+        }
+    }
+    file.Close ();
+}
 
 Task("Restore-NuGet-Packages")
     .Does(() =>
